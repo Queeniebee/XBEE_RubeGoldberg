@@ -19,7 +19,13 @@ var myPort = new SerialPort(portName, {
 socket.on('connection', function(socket){
 
 	console.log('a user connected');
+	
+	socket.on('x', function(){
+		console.log('sending an X!');
 
+		myPort.write('x\r\n');
+		
+	});
 });
 
 http.listen(8080, function(){
@@ -33,8 +39,6 @@ myPort.on('data', function(data){
 	if (serialData == 'X' || serialData == 'x'){
 		console.log(serialData);
 		socket.emit('play Journey');
-
-		myPort.write('x\r\n');
 	}
 
 });
